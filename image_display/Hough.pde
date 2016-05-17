@@ -46,7 +46,7 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
   // size of the region we search for a local maximum
   int neighbourhood = 16;
   // only search around lines with more that this amount of votes
-  int minVotes = 150;
+  int minVotes = 80;
   for (int accR = 0; accR < rDim; accR++) {
     for (int accPhi = 0; accPhi < phiDim; accPhi++) {
       // compute current index in the accumulator

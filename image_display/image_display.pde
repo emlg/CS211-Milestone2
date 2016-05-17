@@ -5,7 +5,7 @@ void settings() {
 }
 
 void setup() {
-  img = loadImage("board1.jpg");
+  img = loadImage("board4.jpg");
   result = createImage(img.width, img.height, RGB);
 
   for(int accPhi = 0; accPhi < phiDim; ang += discretizationStepsPhi, accPhi++){
@@ -15,7 +15,7 @@ void setup() {
 }
 
 void draw() {
-  result = saturationMap(brightnessMap(hueMap(img, 0.376, 0.533), 0.1, 1.0), 0.44, 0.9);
+  result = saturationMap(brightnessMap(hueMap(img, 0.369, 0.530), 0.2, 0.6), 0.44, 1.0);
   result = sobel(binary(convolute(result), 4));
   
   img.resize(img_width, img_height); 
