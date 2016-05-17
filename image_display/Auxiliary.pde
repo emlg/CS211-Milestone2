@@ -1,3 +1,7 @@
+// declaration of our images
+PImage img, acc, result;
+
+// definition of the table constants
 float discretizationStepsPhi = 0.06f;
 float discretizationStepsR = 2.5f;
 int phiDim = (int) (Math.PI / discretizationStepsPhi);
