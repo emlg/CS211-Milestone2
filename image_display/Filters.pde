@@ -4,7 +4,7 @@ PImage hueMap(PImage img, float min, float max){
     if(hue(img.pixels[i]) < 255 * min || hue(img.pixels[i]) > 255 * max)
       result.pixels[i] = color(0);
     else
-      result.pixels[i] = color(hue(img.pixels[i]));
+      result.pixels[i] = color(img.pixels[i]);
   }
   return result;
 }
