@@ -3,6 +3,8 @@ PVector getIntersection(PVector line1, PVector line2) {
   float x = ((line2.x * sin(line1.y)) - (line1.x * sin(line2.y))) / d;
   float y = (- (line2.x * cos(line1.y)) + (line1.x * cos(line2.y))) / d;
   PVector intersection = new PVector(x, y);
+  fill(255, 128, 0);
+  ellipse(intersection.x, intersection.y, 10, 10);
   return intersection;
 }
 
@@ -14,8 +16,6 @@ ArrayList<PVector> getIntersections(List<PVector> lines) {
       PVector line2 = lines.get(j);
       PVector intersection = getIntersection(line1, line2);
       intersections.add(intersection);
-      fill(255, 128, 0);
-      ellipse(intersection.x, intersection.y, 10, 10);
     }
   }
   return intersections;
@@ -39,7 +39,8 @@ List<int[]> filterQuads(List<PVector> lines){
     PVector c41 = getIntersection(l4, l1);
     
     if(graph.isConvex(c12, c23, c34, c41) && graph.nonFlatQuad(c12, c23, c34, c41)){
-       remainingQuads.add(quad); 
+       remainingQuads.add(quad);
+       System.out.println(quad.length);
     }
   }
   

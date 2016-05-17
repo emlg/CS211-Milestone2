@@ -16,6 +16,11 @@ void setup() {
   img = loadImage("board2.jpg");
   result = createImage(width, height, RGB);
 
+  for (int accPhi = 0; accPhi < phiDim; ang += discretizationStepsPhi, accPhi++) {
+    tabSin[accPhi] = (float) (Math.sin(ang) * inverseR);
+    tabCos[accPhi] = (float) (Math.cos(ang) * inverseR);
+  }
+
   /*String[] cameras = Capture.list();
    if (cameras.length == 0) {
    println("There are no cameras available for capture.");
@@ -46,7 +51,6 @@ void draw() {
   result = sobel(convolute(binary(result, 15.f)));
   image(img, 0, 0);
 
-  
   List<PVector> lines = hough(result, 6);
   List<int[]> quads = filterQuads(lines);
 
@@ -60,6 +64,7 @@ void draw() {
     PVector c23 = getIntersection(l2, l3);
     PVector c34 = getIntersection(l3, l4);
     PVector c41 = getIntersection(l4, l1);
+
     // Choose a random, semi-transparent colour
     Random random = new Random();
     fill(color(min(255, random.nextInt(300)), 

@@ -14,25 +14,12 @@ class HoughComparator implements java.util.Comparator<Integer> {
 }
 
 ArrayList<PVector> hough(PImage edgeImg, int nLines) {
-  float discretizationStepsPhi = 0.06f;
-  float discretizationStepsR = 2.5f;
   ArrayList<Integer> bestCandidates = new ArrayList<Integer>();
   ArrayList<PVector> detectedLines = new ArrayList<PVector>();
 
   // dimensions of the accumulator
-  int phiDim = (int) (Math.PI / discretizationStepsPhi);
   int rDim = (int) (((edgeImg.width + edgeImg.height) * 2 + 1) / discretizationStepsR);
   int[] accumulator = new int[(phiDim + 2) * (rDim + 2)];
-
-  // pre-compute the sin and cos values
-  float[] tabSin = new float[phiDim];
-  float[] tabCos = new float[phiDim];
-  float ang = 0;
-  float inverseR = 1.f / discretizationStepsR;
-  for (int accPhi = 0; accPhi < phiDim; ang += discretizationStepsPhi, accPhi++) {
-    tabSin[accPhi] = (float) (Math.sin(ang) * inverseR);
-    tabCos[accPhi] = (float) (Math.cos(ang) * inverseR);
-  }
 
   // definition of line candidates
   for (int y = 0; y < edgeImg.height; y++)
