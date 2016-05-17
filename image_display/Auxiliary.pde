@@ -1,5 +1,6 @@
 // declaration of our images
-PImage img, acc, result;
+PImage img, houghImg, result;
+int img_width = 400, img_height = 300;
 
 // definition of the table constants
 float discretizationStepsPhi = 0.06f;

@@ -38,7 +38,7 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
 
 
   // choosing only the best candidates
-  PImage houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
+  houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
   for (int i = 0; i < accumulator.length; i++) {
     houghImg.pixels[i] = color(min(255, accumulator[i]));
   }
@@ -46,7 +46,7 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
   // size of the region we search for a local maximum
   int neighbourhood = 16;
   // only search around lines with more that this amount of votes
-  int minVotes = 200;
+  int minVotes = 150;
   for (int accR = 0; accR < rDim; accR++) {
     for (int accPhi = 0; accPhi < phiDim; accPhi++) {
       // compute current index in the accumulator

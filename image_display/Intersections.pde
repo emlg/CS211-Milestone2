@@ -40,9 +40,29 @@ List<int[]> filterQuads(List<PVector> lines){
     
     if(graph.isConvex(c12, c23, c34, c41) && graph.nonFlatQuad(c12, c23, c34, c41)){
        remainingQuads.add(quad);
-       System.out.println(quad.length);
     }
   }
   
   return remainingQuads;
+}
+
+void displayQuads(List<PVector> lines, List<int[]> quads){
+  for (int[] quad : quads) {
+    PVector l1 = lines.get(quad[0]);
+    PVector l2 = lines.get(quad[1]);
+    PVector l3 = lines.get(quad[2]);
+    PVector l4 = lines.get(quad[3]);
+
+    PVector c12 = getIntersection(l1, l2);
+    PVector c23 = getIntersection(l2, l3);
+    PVector c34 = getIntersection(l3, l4);
+    PVector c41 = getIntersection(l4, l1);
+
+    // Choose a random, semi-transparent colour
+    Random random = new Random();
+    fill(color(min(255, random.nextInt(300)), 
+      min(255, random.nextInt(300)), 
+      min(255, random.nextInt(300)), 50));
+    quad(c12.x, c12.y, c23.x, c23.y, c34.x, c34.y, c41.x, c41.y);
+  }
 }

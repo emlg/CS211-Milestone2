@@ -4,7 +4,7 @@ PImage convolute(PImage img) {
                        { 9, 12, 9 }};
 
   int n = 3;
-  float weight = 150.f;
+  float weight = 95;
   PImage result = createImage(img.width, img.height, ALPHA);
 
   for (int i = n/2; i < img.height - n/2; i++)
