@@ -8,7 +8,7 @@ void settings() {
 }
 
 void setup() {
-  img = loadImage("board4.jpg");
+  img = loadImage("board1.jpg");
   result = createImage(img.width, img.height, RGB);
   noLoop();
 }
