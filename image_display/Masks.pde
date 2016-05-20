@@ -4,18 +4,20 @@ PImage convolute(PImage img) {
                        { 9, 12, 9 }};
 
   int n = 3;
-  float weight = 95.f;
+  float weight = 99.f;
   PImage result = createImage(img.width, img.height, ALPHA);
 
-  for (int i = n/2; i < img.height - n/2; i++)
+  for (int i = n/2; i < img.height - n/2; i++){
     for (int j = n/2; j < img.width - n/2; j++) {
       int value = 0;
-      for (int k = 0; k < n; k++)
-        for (int l = 0; l < n; l++)
+      for (int k = 0; k < n; k++){
+        for (int l = 0; l < n; l++){
           value += brightness(img.pixels[(i - n/2 + k)* img.width + (j - n/2 + l)]) * kernel[k][l];
+        }
+      }
       result.pixels[i*img.width + j] = color((int)(value/weight));
     }
-
+  }
   return result;
 }
 
@@ -52,7 +54,7 @@ PImage sobel(PImage img) {
 
   for (int y = 2; y < img.height - 2; y++) // Skip top and bottom edges
     for (int x = 2; x < img.width - 2; x++) // Skip left and right
-      if (buffer[y * img.width + x] > (int)(max * 0.4f)) // 30% of the max
+      if (buffer[y * img.width + x] > (int)(max * 0.3f)) // 30% of the max
         result.pixels[y * img.width + x] = color(255);
       else
         result.pixels[y * img.width + x] = color(0);

@@ -1,3 +1,8 @@
+// definition of the table constants
+float discretizationStepsPhi = 0.06f;
+float discretizationStepsR = 2.5f;
+int phiDim = (int) (Math.PI / discretizationStepsPhi);
+
 class HoughComparator implements java.util.Comparator<Integer> {
   int[] accumulator;
 
@@ -25,15 +30,12 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
   for (int y = 0; y < edgeImg.height; y++)
     for (int x = 0; x < edgeImg.width; x++)
       if (brightness(edgeImg.pixels[y * edgeImg.width + x]) != 0) {
-        ang = 0;
-        for (int phi = 0; phi < phiDim; ang += discretizationStepsPhi, phi++) {
-          int indexPhi = Math.round(ang / discretizationStepsPhi + 1);
-          float r =  (x * tabCos[phi] + y * tabSin[phi]);
-          while (r < 0) 
-            r += (rDim - 1)/2;
-          int indexR = Math.round(r) + (rDim - 1) / 2;
-          accumulator[indexPhi * (rDim+2) + 1 + indexR] += 1;
+       for (int phi = 0; phi < phiDim; phi++) {
+          float r = x * cos(phi*discretizationStepsPhi) + y * sin(phi*discretizationStepsPhi);
+          r = r/discretizationStepsR + (rDim - 1)/2; 
+          accumulator[round((phi+1)*(rDim+2) + r +1)] += 1;
         }
+
       }
 
 
@@ -44,9 +46,9 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
   }
 
   // size of the region we search for a local maximum
-  int neighbourhood = 16;
+  int neighbourhood = 30;
   // only search around lines with more that this amount of votes
-  int minVotes = 80;
+  int minVotes = 200;
   for (int accR = 0; accR < rDim; accR++) {
     for (int accPhi = 0; accPhi < phiDim; accPhi++) {
       // compute current index in the accumulator
@@ -79,7 +81,7 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
 
   Collections.sort(bestCandidates, new HoughComparator(accumulator));
   // You may want to resize the accumulator to make it easier to see:
-  houghImg.resize(800, 600);
+  houghImg.resize(400, 400);
   houghImg.updatePixels();
 
 
@@ -115,6 +117,5 @@ ArrayList<PVector> hough(PImage edgeImg, int nLines) {
         line(x2, y2, x3, y3);
     }
   }
-
   return detectedLines;
 }
